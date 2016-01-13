@@ -1,5 +1,6 @@
 # forlinux-ok6410
 forlinux board ok6410 project source code
+
 include kernel u-boot
 
 1.  kernel version linux-3.0.1 
