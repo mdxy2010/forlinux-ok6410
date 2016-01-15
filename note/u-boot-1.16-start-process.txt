@@ -1,0 +1,21 @@
+1.	入口
+	/cpu/s3c64xx/start.S
+
+	从标签 _start 处开始执行, 首先执行 reset 的操作
+
+2.	reset 操作主要执行以下操作
+	1.	配置cpu 进入  超级用户模式,  SVC32 MODE
+		mrs	r0,cpsr
+		bic	r0,r0,#0x1f
+		orr	r0,r0,#0xd3
+		msr	cpsr,r0
+
+	2.	cpu_init_crit 初始化一些和cpu相关的重要寄存器,以及配置memory
+		1.	刷新cache
+		2.	刷新TLB
+		3.	关闭MMU和cache
+		4.	配置内存为 256MB (0X70000000 - 0X7FFFFFFF)
+
+	3.	跳转至lowlevel_init 进行pll mux memory的配置
+		/board/samsung/smdk6410/lowlevel_init.S
+

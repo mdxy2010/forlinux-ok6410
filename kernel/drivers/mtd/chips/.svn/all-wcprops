@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/chips
+END
+cfi_util.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/chips/cfi_util.c
+END
+Kconfig
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/chips/Kconfig
+END
+cfi_cmdset_0001.c
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/chips/cfi_cmdset_0001.c
+END
+gen_probe.c
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/chips/gen_probe.c
+END
+cfi_cmdset_0002.c
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/chips/cfi_cmdset_0002.c
+END
+cfi_cmdset_0020.c
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/chips/cfi_cmdset_0020.c
+END
+chipreg.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/chips/chipreg.c
+END
+fwh_lock.h
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/chips/fwh_lock.h
+END
+jedec_probe.c
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/chips/jedec_probe.c
+END
+cfi_probe.c
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/chips/cfi_probe.c
+END
+map_absent.c
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/chips/map_absent.c
+END
+map_rom.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/chips/map_rom.c
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/chips/Makefile
+END
+map_ram.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/chips/map_ram.c
+END

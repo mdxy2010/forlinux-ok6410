@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/onenand
+END
+omap2.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/onenand/omap2.c
+END
+Kconfig
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/onenand/Kconfig
+END
+onenand_bbt.c
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/onenand/onenand_bbt.c
+END
+onenand_sim.c
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/onenand/onenand_sim.c
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/onenand/Makefile
+END
+generic.c
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/onenand/generic.c
+END
+onenand_base.c
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/onenand/onenand_base.c
+END
+samsung.c
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/onenand/samsung.c
+END

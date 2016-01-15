@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/lpddr
+END
+Kconfig
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/lpddr/Kconfig
+END
+qinfo_probe.c
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/lpddr/qinfo_probe.c
+END
+lpddr_cmds.c
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/lpddr/lpddr_cmds.c
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/lpddr/Makefile
+END

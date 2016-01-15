@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/devices
+END
+Kconfig
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/devices/Kconfig
+END
+ms02-nv.c
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/devices/ms02-nv.c
+END
+lart.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/devices/lart.c
+END
+phram.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/devices/phram.c
+END
+ms02-nv.h
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/devices/ms02-nv.h
+END
+doc2000.c
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/devices/doc2000.c
+END
+doc2001.c
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/devices/doc2001.c
+END
+pmc551.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/devices/pmc551.c
+END
+doc2001plus.c
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/devices/doc2001plus.c
+END
+slram.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/devices/slram.c
+END
+docecc.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/devices/docecc.c
+END
+block2mtd.c
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/devices/block2mtd.c
+END
+mtdram.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/devices/mtdram.c
+END
+mtd_dataflash.c
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/devices/mtd_dataflash.c
+END
+m25p80.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/devices/m25p80.c
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/devices/Makefile
+END
+sst25l.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/devices/sst25l.c
+END
+docprobe.c
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/sourcecode-linux/!svn/ver/131/linux3.0/linux-3.0.1/drivers/mtd/devices/docprobe.c
+END
