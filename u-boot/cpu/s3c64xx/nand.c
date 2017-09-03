@@ -944,219 +944,230 @@ static void s3c_nand_write_page_4bit(struct mtd_info *mtd, struct nand_chip *chi
 void board_nand_init(struct nand_chip *nand)
 {
 #if defined(CFG_NAND_HWECC)
-    int i;
-    u_char tmp;
-    u_char dev_id;
-    struct nand_flash_dev *type = NULL;
+	int i;
+	u_char tmp;
+	u_char dev_id;
+	struct nand_flash_dev *type = NULL;
 #endif
 
-    if (NFCONF_REG & 0x80000000)
-        boot_nand = 1;
-    else
-        boot_nand = 0;
+	if (NFCONF_REG & 0x80000000)
+		boot_nand = 1;
+	else
+		boot_nand = 0;
 
-    NFCONT_REG 		&= ~NFCONT_WP;
-    nand->IO_ADDR_R		= (void __iomem *)(NFDATA);
-    nand->IO_ADDR_W		= (void __iomem *)(NFDATA);
-    nand->cmd_ctrl		= s3c_nand_hwcontrol;
-    nand->dev_ready		= s3c_nand_device_ready;
-    nand->scan_bbt		= s3c_nand_scan_bbt;
-    nand->options		= 0;
+	NFCONT_REG 		&= ~NFCONT_WP;
+	nand->IO_ADDR_R		= (void __iomem *)(NFDATA);
+	nand->IO_ADDR_W		= (void __iomem *)(NFDATA);
+	nand->cmd_ctrl		= s3c_nand_hwcontrol;
+	nand->dev_ready		= s3c_nand_device_ready;
+	nand->scan_bbt		= s3c_nand_scan_bbt;
+	nand->options		= 0;
 
 #if defined(CFG_NAND_FLASH_BBT)
-    nand->options 		|= NAND_USE_FLASH_BBT;
+	nand->options 		|= NAND_USE_FLASH_BBT;
 #else
-    nand->options		|= NAND_SKIP_BBTSCAN;
+	nand->options		|= NAND_SKIP_BBTSCAN;
 #endif
 
 #if defined(CFG_NAND_HWECC)
-    nand->ecc.mode		= NAND_ECC_HW;
-    nand->ecc.hwctl		= s3c_nand_enable_hwecc;
-    nand->ecc.calculate	= s3c_nand_calculate_ecc;
-    nand->ecc.correct	= s3c_nand_correct_data;
+	nand->ecc.mode		= NAND_ECC_HW;
+	nand->ecc.hwctl		= s3c_nand_enable_hwecc;
+	nand->ecc.calculate	= s3c_nand_calculate_ecc;
+	nand->ecc.correct	= s3c_nand_correct_data;
 
 
-    // K9GAG08U0E must add below codes
-    {
-        s3c_nand_hwcontrol(0, NAND_CMD_RESET, NAND_NCE | NAND_CLE | NAND_CTRL_CHANGE);
-        s3c_nand_device_ready(0);
-    }
+	// K9GAG08U0E must add below codes
+	{
+		s3c_nand_hwcontrol(0, NAND_CMD_RESET, NAND_NCE | NAND_CLE | NAND_CTRL_CHANGE);
+		s3c_nand_device_ready(0);
+	}
 
-    s3c_nand_hwcontrol(0, NAND_CMD_READID, NAND_NCE | NAND_CLE | NAND_CTRL_CHANGE);
-    s3c_nand_hwcontrol(0, 0x00, NAND_CTRL_CHANGE | NAND_NCE | NAND_ALE);
-    s3c_nand_hwcontrol(0, 0x00, NAND_NCE | NAND_ALE);
-    s3c_nand_hwcontrol(0, NAND_CMD_NONE, NAND_NCE | NAND_CTRL_CHANGE);
+	s3c_nand_hwcontrol(0, NAND_CMD_READID, NAND_NCE | NAND_CLE | NAND_CTRL_CHANGE);
+	s3c_nand_hwcontrol(0, 0x00, NAND_CTRL_CHANGE | NAND_NCE | NAND_ALE);
+	s3c_nand_hwcontrol(0, 0x00, NAND_NCE | NAND_ALE);
+	s3c_nand_hwcontrol(0, NAND_CMD_NONE, NAND_NCE | NAND_CTRL_CHANGE);
 
-    s3c_nand_device_ready(0);
+	s3c_nand_device_ready(0);
 
-    tmp = readb(nand->IO_ADDR_R); /* Maf. ID */
+	tmp = readb(nand->IO_ADDR_R); /* Maf. ID */
 
-    unsigned int manufac=tmp;
- //   printf("Manufactor ID:%x\n",manufac);
+	unsigned int manufac=tmp;
+	printf("Manufactor ID:%x\n",manufac);
 
-    tmp = dev_id = readb(nand->IO_ADDR_R); /* Device ID */
- //   printf("dev_id ID:%x \n",dev_id);
+	tmp = dev_id = readb(nand->IO_ADDR_R); /* Device ID */
+	printf("dev_id ID:%x \n",dev_id);
 
-    for (i = 0; nand_flash_ids[i].name != NULL; i++) {
-        if (tmp == nand_flash_ids[i].id) {
-            type = &nand_flash_ids[i];
-            break;
-        }
-    }
+	for (i = 0; nand_flash_ids[i].name != NULL; i++) {
+		if (tmp == nand_flash_ids[i].id) {
+			type = &nand_flash_ids[i];
+			break;
+		}
+	}
 
-    nand->cellinfo = readb(nand->IO_ADDR_R);	/* 3rd byte */
-    tmp = readb(nand->IO_ADDR_R);			/* 4th byte */
+	nand->cellinfo = readb(nand->IO_ADDR_R);	/* 3rd byte */
+	tmp = readb(nand->IO_ADDR_R);			/* 4th byte */
 
- //   printf("3th is = %x\n",nand->cellinfo);
+	printf("3th is = %x\n",nand->cellinfo);
 
-    if (!type->pagesize)
-    {
+	if (!type->pagesize)
+	{
 
-        if (((nand->cellinfo >> 2) & 0x3) == 0)
-        {
-            nand_type = S3C_NAND_TYPE_SLC;
-            nand->ecc.size = 512;
-            nand->ecc.bytes	= 4;
+		if (((nand->cellinfo >> 2) & 0x3) == 0)
+		{
+			nand_type = S3C_NAND_TYPE_SLC;
+			nand->ecc.size = 512;
+			nand->ecc.bytes	= 4;
 
-             if ((1024 << (tmp & 0x3)) > 512)
-            {
-                nand->ecc.read_page = s3c_nand_read_page_1bit;
-                nand->ecc.write_page = s3c_nand_write_page_1bit;
-                nand->ecc.read_oob = s3c_nand_read_oob_1bit;
-                nand->ecc.write_oob = s3c_nand_write_oob_1bit;
-                nand->ecc.layout = &s3c_nand_oob_64;
+			if ((1024 << (tmp & 0x3)) > 512)
+			{
+				nand->ecc.read_page = s3c_nand_read_page_1bit;
+				nand->ecc.write_page = s3c_nand_write_page_1bit;
+				nand->ecc.read_oob = s3c_nand_read_oob_1bit;
+				nand->ecc.write_oob = s3c_nand_write_oob_1bit;
+				nand->ecc.layout = &s3c_nand_oob_64;
 #ifdef FORLINX_DEBUG
-                printk("Nandflash:Type=SLC  ChipName:samsung-K9F2G08U0B or hynix-HY27UF082G2B \n");
+				printk("Nandflash:Type=SLC  ChipName:samsung-K9F2G08U0B or hynix-HY27UF082G2B \n");
 #endif
 
-            } else
-            {
-                nand->ecc.layout = &s3c_nand_oob_16;
-                printf("******************************************\n");
-            }
+			} else
+			{
+				nand->ecc.layout = &s3c_nand_oob_16;
+				printf("******************************************\n");
+			}
 
-        } else
-        {
-            nand_type = S3C_NAND_TYPE_MLC;
-            nand->options |= NAND_NO_SUBPAGE_WRITE;	/* NOP = 1 if MLC */
-            nand->ecc.read_page = s3c_nand_read_page_4bit;
-            nand->ecc.write_page = s3c_nand_write_page_4bit;
-            nand->ecc.size = 512;
-            nand->ecc.bytes = 8;	/* really 7 bytes */
-            nand->ecc.layout = &s3c_nand_oob_mlc_64;
+		} else
+		{
+			nand_type = S3C_NAND_TYPE_MLC;
+			nand->options |= NAND_NO_SUBPAGE_WRITE;	/* NOP = 1 if MLC */
+			nand->ecc.read_page = s3c_nand_read_page_4bit;
+			nand->ecc.write_page = s3c_nand_write_page_4bit;
+			nand->ecc.size = 512;
+			nand->ecc.bytes = 8;	/* really 7 bytes */
+			nand->ecc.layout = &s3c_nand_oob_mlc_64;
 #ifdef FORLINX_DEBUG
-            printf("Nandflash:ChipType=MLC  ChipName=samsung-K9G8G08U0A \n");
+			printf("Nandflash:ChipType=MLC  ChipName=samsung-K9G8G08U0A \n");
 #endif
-        }
-    } else
-    {
+		}
+	} else
+	{
 
-        nand_type = S3C_NAND_TYPE_MLC;
-        nand->options |= NAND_NO_SUBPAGE_WRITE;	/* NOP = 1 if MLC */
-        nand->ecc.read_page = s3c_nand_read_page_4bit;
-        nand->ecc.write_page = s3c_nand_write_page_4bit;
-        nand->ecc.size = 512;
-        nand->ecc.bytes = 8;	/* really 7 bytes */
-        nand->ecc.layout = &s3c_nand_oob_mlc_64;
+		nand_type = S3C_NAND_TYPE_MLC;
+		nand->options |= NAND_NO_SUBPAGE_WRITE;	/* NOP = 1 if MLC */
+		nand->ecc.read_page = s3c_nand_read_page_4bit;
+		nand->ecc.write_page = s3c_nand_write_page_4bit;
+		nand->ecc.size = 512;
+		nand->ecc.bytes = 8;	/* really 7 bytes */
+		nand->ecc.layout = &s3c_nand_oob_mlc_64;
 
-        //int childType=tmp & 0x03; //Page size
-        int childType= nand->cellinfo; //Page size
+		//int childType=tmp & 0x03; //Page size
+		int childType= nand->cellinfo; //Page size
 
-        //  printf("dev_id=%x,childType=%x \n",dev_id,childType);
-
-        if(dev_id == 0xd5)
-        {
-           // dg add #if 2011-11-09
-    #if defined(CONFIG_NAND_BL1_8BIT_ECC) && (defined(CONFIG_S3C6410) || defined(CONFIG_S3C6430))
-            nand->ecc.read_page = s3c_nand_read_page_8bit;
-            nand->ecc.write_page = s3c_nand_write_page_8bit;
-            nand->ecc.size = 512;
-            nand->ecc.bytes = 13;
-
-            if(childType==0x94)
-            {
-                //K9GAG08U0D     size=2GB  type=MLC  Page=4K
-    #ifdef FORLINX_DEBUG
-                printf("Nandflash:ChipType= MLC  ChipName=samsung-K9GAG08U0D \n");
-    #endif
-                nand->ecc.layout = &s3c_nand_oob_mlc_128_8bit;
-            }
-            else if(childType==0x14)
-            {
-                //K9GAG08U0M     size=2GB  type=MLC  Page=4K
-    #ifdef FORLINX_DEBUG
-                printf("Nandflash:ChipType= MLC  ChipName=samsung-K9GAG08U0M \n");
-    #endif
-               nand->ecc.layout = &s3c_nand_oob_mlc_128_8bit;
-            }
-            else if(childType==0x84)
-            {
-                //K9GAG08U0E     size=2GB  type=MLC  Page=8K
-    #ifdef FORLINX_DEBUG
-                printf("Nandflash:ChipType= MLC  ChipName=samsung-K9GAG08U0E \n");
-    #endif
-                nand->ecc.layout = &s3c_nand_oob_mlc_232_8bit;
-            }
-
-#endif
-        }else if(dev_id == 0xd7)
-        {
-
-            //K9LBG08U0M     size=4GB  type=MLC  Page=8K
+		//  printf("dev_id=%x,childType=%x \n",dev_id,childType);
+		if((manufac==0xec)&&(dev_id==0xd3)) 
+		{
+			nand_type = S3C_NAND_TYPE_SLC;
+			nand->ecc.size = 512;
+			nand->ecc.bytes	= 4;
+			nand->ecc.read_page = s3c_nand_read_page_1bit;
+			nand->ecc.write_page = s3c_nand_write_page_1bit;
+			nand->ecc.read_oob = s3c_nand_read_oob_1bit;
+			nand->ecc.write_oob = s3c_nand_write_oob_1bit;
+			nand->ecc.layout = &s3c_nand_oob_64;
+			printk("forlinx********Nandflash:Type=SLC  ChipName:samsung-K9K8G08U0E ******************* \n");
+		} 
+		else if(dev_id == 0xd5)
+		{
+			// dg add #if 2011-11-09
 #if defined(CONFIG_NAND_BL1_8BIT_ECC) && (defined(CONFIG_S3C6410) || defined(CONFIG_S3C6430))
-        nand->ecc.read_page = s3c_nand_read_page_8bit;
-        nand->ecc.write_page = s3c_nand_write_page_8bit;
-        nand->ecc.size = 512;
-        nand->ecc.bytes = 13;
-        nand->ecc.layout = &s3c_nand_oob_mlc_128_8bit;
-#endif
+			nand->ecc.read_page = s3c_nand_read_page_8bit;
+			nand->ecc.write_page = s3c_nand_write_page_8bit;
+			nand->ecc.size = 512;
+			nand->ecc.bytes = 13;
 
+			if(childType==0x94)
+			{
+				//K9GAG08U0D     size=2GB  type=MLC  Page=4K
 #ifdef FORLINX_DEBUG
-        printf("Nandflash:ChipType= MLC  ChipName=samsung-K9LBG08U0D \n");
+				printf("Nandflash:ChipType= MLC  ChipName=samsung-K9GAG08U0D \n");
 #endif
+				nand->ecc.layout = &s3c_nand_oob_mlc_128_8bit;
+			}
+			else if(childType==0x14)
+			{
+				//K9GAG08U0M     size=2GB  type=MLC  Page=4K
+#ifdef FORLINX_DEBUG
+				printf("Nandflash:ChipType= MLC  ChipName=samsung-K9GAG08U0M \n");
+#endif
+				nand->ecc.layout = &s3c_nand_oob_mlc_128_8bit;
+			}
+			else if(childType==0x84)
+			{
+				//K9GAG08U0E     size=2GB  type=MLC  Page=8K
+#ifdef FORLINX_DEBUG
+				printf("Nandflash:ChipType= MLC  ChipName=samsung-K9GAG08U0E \n");
+#endif
+				nand->ecc.layout = &s3c_nand_oob_mlc_232_8bit;
+			}
 
-        }else if(manufac==0x2c && dev_id==0x48)
-        {
+#endif
+		}else if(dev_id == 0xd7)
+		{
 
-            //MT29F16G08ABACAWP      size=2GB  type=SLC  Page=4K
+			//K9LBG08U0M     size=4GB  type=MLC  Page=8K
 #if defined(CONFIG_NAND_BL1_8BIT_ECC) && (defined(CONFIG_S3C6410) || defined(CONFIG_S3C6430))
-        nand->ecc.read_page = s3c_nand_read_page_8bit;
-        nand->ecc.write_page = s3c_nand_write_page_8bit;
-        nand->ecc.size = 512;
-        nand->ecc.bytes = 13;
-        nand->ecc.layout = &s3c_nand_oob_mlc_128_8bit;
+			nand->ecc.read_page = s3c_nand_read_page_8bit;
+			nand->ecc.write_page = s3c_nand_write_page_8bit;
+			nand->ecc.size = 512;
+			nand->ecc.bytes = 13;
+			nand->ecc.layout = &s3c_nand_oob_mlc_128_8bit;
 #endif
 
 #ifdef FORLINX_DEBUG
-        printf("Nandflash:ChipType= SLC  ChipName=MT29F16G08ABACAWP\n");
+			printf("Nandflash:ChipType= MLC  ChipName=samsung-K9LBG08U0D \n");
 #endif
 
-        }else if(manufac==0x2c && dev_id==0x38)
-       {
+		}else if(manufac==0x2c && dev_id==0x48)
+		{
 
-        //MT29F8G08ABABAWP      size=1GB  type=SLC  Page=4K
+			//MT29F16G08ABACAWP      size=2GB  type=SLC  Page=4K
 #if defined(CONFIG_NAND_BL1_8BIT_ECC) && (defined(CONFIG_S3C6410) || defined(CONFIG_S3C6430))
-    nand->ecc.read_page = s3c_nand_read_page_8bit;
-    nand->ecc.write_page = s3c_nand_write_page_8bit;
-    nand->ecc.size = 512;
-    nand->ecc.bytes = 13;
-    nand->ecc.layout = &s3c_nand_oob_mlc_128_8bit;
+			nand->ecc.read_page = s3c_nand_read_page_8bit;
+			nand->ecc.write_page = s3c_nand_write_page_8bit;
+			nand->ecc.size = 512;
+			nand->ecc.bytes = 13;
+			nand->ecc.layout = &s3c_nand_oob_mlc_128_8bit;
 #endif
 
 #ifdef FORLINX_DEBUG
-    printf("Nandflash:ChipType= SLC  ChipName=MT29F16G08ABACAWP\n");
+			printf("Nandflash:ChipType= SLC  ChipName=MT29F16G08ABACAWP\n");
 #endif
 
-        }
-        else
-        {
-#ifdef FORLINX_DEBUG
-            printf("select s3c_nand_oob_mlc_64\n");
+		}else if(manufac==0x2c && dev_id==0x38)
+		{
+
+			//MT29F8G08ABABAWP      size=1GB  type=SLC  Page=4K
+#if defined(CONFIG_NAND_BL1_8BIT_ECC) && (defined(CONFIG_S3C6410) || defined(CONFIG_S3C6430))
+			nand->ecc.read_page = s3c_nand_read_page_8bit;
+			nand->ecc.write_page = s3c_nand_write_page_8bit;
+			nand->ecc.size = 512;
+			nand->ecc.bytes = 13;
+			nand->ecc.layout = &s3c_nand_oob_mlc_128_8bit;
 #endif
-        }
-    }
+
+#ifdef FORLINX_DEBUG
+			printf("Nandflash:ChipType= SLC  ChipName=MT29F16G08ABACAWP\n");
+#endif
+
+		}
+		else
+		{
+#ifdef FORLINX_DEBUG
+			printf("select s3c_nand_oob_mlc_64\n");
+#endif
+		}
+	}
 #else
-    nand->ecc.mode = NAND_ECC_SOFT;
+	nand->ecc.mode = NAND_ECC_SOFT;
 #endif
 }
 #endif /* (CONFIG_COMMANDS & CFG_CMD_NAND) */

@@ -491,22 +491,18 @@
 
 #define	CONFIG_NAND
 #define CONFIG_MOVINAND
-
-
-
 #define CFG_NAND_HWECC
-
-
 
 //uboot-2M ,zImage-5M ,FS-200M,user-other
 #define CFG_NAND_ERASE_LEN  0xCF00000 //200MB
 
+#define CONFIG_LCD		1
 #if defined(FORLINX_BOOT_NAND)
 #define CONFIG_BOOT_NAND
 #define CFG_ENV_IS_IN_NAND
 //#define CFG_NAND_LARGEPAGE_SAVEENV
 //#define CFG_NAND_FLASH_BBT
-#define CONFIG_BOOTCOMMAND	"nand read 0xc0008000 0x200000 0x500000;bootm 0xc0008000"
+#define CONFIG_BOOTCOMMAND	"nand read.i 0xc0008000 0x500000 0x500000;bootm 0xc0008000"
 
 //#define CFG_MALLOC_LEN		(CFG_ENV_SIZE + 512*1024)
 //#define CFG_ENV_SIZE		0x00080000	/* Total Size of Environment Sector */ //512K Bytes
@@ -519,14 +515,23 @@
 // forlinx add this macro for compatible K9GAG08U0E, K9GAG08U0D,K9GAG08U0M K9G2G08U0B,HY27UF082G2B,K9G8G08U0A,K9LBG08U0D
 #define CFG_ENV_ERASE_BLOCK_SIZE  0x100000
 
+#if	defined(UBOOT_LCD_LOGO)
+#define CONFIG_SPLASH_SCREEN	1
+#define CONFIG_SPLASH_SCREEN_SIZE	0x80000
+#define CONFIG_SPLASHIMAGE	0x200000 
+#endif
 #elif defined(FORLINX_BOOT_SD)
 #define FORLINX_DEBUG
 #define CONFIG_MMC	1
-#define CONFIG_LCD
 #define CONFIG_BOOT_MOVINAND
 #define CFG_ENV_IS_IN_MOVINAND
 
-#define CONFIG_BOOTCOMMAND  "nand led-start;nand erase  ;fatload mmc 0:1 0x50008000 u-boot.bin;nand write.uboot 0x50008000 0 0x200000;fatload mmc 0:1 0x50008000 zImage;nand write.e    0x50008000 0x200000 0x500000; fatload mmc 0:1 0x50008000 rootfs.yaffs2; nand write.yaffs2 0x50008000 0x00700000 $filesize;  nand  beep; nand led-end"
+#define CONFIG_LCD_OUTPUT	1
+#if	defined(UBOOT_LCD_LOGO)
+#define CONFIG_BOOTCOMMAND  "nand led-start;nand erase  ;fatload mmc 0:1 0x50008000 u-boot.bin;nand write.uboot 0x50008000 0 0x200000;fatload mmc 0:1 0x50008000 logo.bmp;nand write.i    0x50008000 0x200000 0x80000;fatload mmc 0:1 0x50008000 zImage;nand write.e    0x50008000 0x500000 0x500000; fatload mmc 0:1 0x50008000 rootfs.yaffs2; nand write.yaffs2 0x50008000 0x01e00000 $filesize;  nand  beep; nand led-end"
+#else
+#define CONFIG_BOOTCOMMAND  "nand led-start;nand erase  ;fatload mmc 0:1 0x50008000 u-boot.bin;nand write.uboot 0x50008000 0 0x200000;fatload mmc 0:1 0x50008000 zImage;nand write.e    0x50008000 0x500000 0x500000; fatload mmc 0:1 0x50008000 rootfs.yaffs2; nand write.yaffs2 0x50008000 0x01e00000 $filesize;  nand  beep; nand led-end"
+#endif
 
 #define CFG_MALLOC_LEN		(CFG_ENV_SIZE + 1024*1024)
 #define CFG_ENV_SIZE		0x4000	/* Total Size of Environment Sector */

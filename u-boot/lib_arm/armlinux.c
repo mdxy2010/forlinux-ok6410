@@ -26,6 +26,9 @@
 #include <image.h>
 #include <zlib.h>
 #include <asm/byteorder.h>
+#if	defined(UBOOT_LCD_BACKLIGHT)
+#include <lcd.h>
+#endif
 #ifdef CONFIG_HAS_DATAFLASH
 #include <dataflash.h>
 #endif
@@ -264,7 +267,9 @@ void do_bootm_linux (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[],
 		udc_disconnect ();
 	}
 #endif
-
+#if	defined(UBOOT_LCD_BACKLIGHT)
+	lcd_backlight_ctrl(LCD_BACKLIGHT_OFF);
+#endif
 	cleanup_before_linux ();
 
 	theKernel (0, bd->bi_arch_number, bd->bi_boot_params);

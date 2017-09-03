@@ -47,6 +47,9 @@
 #include <asm/io.h>
 #include <regs-lcd.h>
 
+#if	defined(UBOOT_LCD_BACKLIGHT)
+#include <lcd.h>
+#endif
 #if defined(CONFIG_BOOT_MOVINAND)
 #include <movi.h>
 #endif
@@ -302,6 +305,9 @@ void start_armboot (void)
 	memset (gd->bd, 0, sizeof (bd_t));
 
 	monitor_flash_len = _bss_start - _armboot_start;
+#if	defined(UBOOT_LCD_BACKLIGHT)
+	lcd_backlight_ctrl(LCD_BACKLIGHT_OFF);
+#endif
 
 	//puts("****************** start_armboot *******************\n");
 	for (init_fnc_ptr = init_sequence; *init_fnc_ptr; ++init_fnc_ptr) {
@@ -310,7 +316,6 @@ void start_armboot (void)
 		}
 	}
 	
-	printf("==========================================\n");
 #ifndef CFG_NO_FLASH
 	/* configure available FLASH banks */
 	size = flash_init ();
