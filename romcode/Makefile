@@ -1,12 +1,17 @@
-all: start.o main.o mmu.o led.o button.o interrupt.o mem.o nand.o uart.o
-	arm-linux-ld -Tgboot.lds -o gboot.elf $^
-	arm-linux-objcopy -O binary gboot.elf gboot.bin
-	
+CC = arm-none-linux-gnueabi-gcc
+LD = arm-none-linux-gnueabi-ld
+OBJCOPY = arm-none-linux-gnueabi-objcopy
+LDPATH=-lgcc -L $(shell dirname `$(CC) -print-libgcc-file-name`)
+LDFLAGS=-Tgboot.lds -nostartfiles
+
+all: start.o main.o mmu.o led.o button.o interrupt.o mem.o nand.o uart.o console.o vsprintf.o string.o ctype.o div64.o
+	$(LD) $(LDFLAGS) -o gboot.elf $^ $(LDPATH)
+	$(OBJCOPY) -O binary gboot.elf gboot.bin
 %.o : %.S
-	arm-linux-gcc -g -c $^
+	$(CC) -g -c $^
 	
 %.o : %.c
-	arm-linux-gcc -g -fno-builtin -c $^
+	$(CC) -g -fno-builtin -I ./include -c $^
 	
 .PHONY: clean
 clean:

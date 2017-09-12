@@ -1,5 +1,6 @@
 int gboot_main()
 {
+	int i;
 	unsigned char buf[1024*4];
 #ifdef MMU_ON
 	mmu_init();
@@ -7,7 +8,7 @@ int gboot_main()
 
 	uart_init();
 	led_init();
-	puts("======== led_init done ==========\n");
+	printf("======== led_init done ==========\n");
 
 	button_init();
 
@@ -16,15 +17,16 @@ int gboot_main()
 	led_off();
 
 
-	NF_Erase(128*1+1);
+	NF_Erase(0x20000000);
 	buf[0] = 100;
-	NF_WritePage(128*1+1,buf);
+	NF_WritePage(0x20000000,buf);
 
 	buf[0] = 10;
-	NF_PageRead(128*1+1,buf);
+	NF_PageRead(0x20000000,buf);
 
 	if ( buf[0] == 100 ) {
-		puts("read right data........\n");
+		printf("read right data........\n");
+		printf("buf[0] = %d\n", buf[0]);
 		led_on();
 	}
 
