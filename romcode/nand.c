@@ -229,3 +229,37 @@ int NF_WritePage(unsigned long addr,unsigned char* buff)
 
 	return ret;
 }
+
+int nand_readid(void)
+{
+	int id;
+
+	select_ship();
+
+	clean_RnB();
+
+	nand_cmd(0x90);
+	nand_addr(0x00);
+	nand_addr(0x00);
+
+	wait_RnB();
+
+	id = NFDATA;
+	printf("first bytes = 0x%02x\n", id);
+
+	id = NFDATA;
+	printf("second bytes = 0x%02x\n", id);
+
+	id = NFDATA;
+	printf("three bytes = 0x%02x\n", id);
+
+	id = NFDATA;
+	printf("four bytes = 0x%02x\n", id);
+
+	id = NFDATA;
+	printf("five bytes = 0x%02x\n", id);
+
+	delselect_ship();
+
+	return 0;
+}

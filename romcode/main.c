@@ -30,7 +30,7 @@ int gboot_main()
 		led_on();
 	}
 
-
+	nand_readid();
 
 	while(1);
 
