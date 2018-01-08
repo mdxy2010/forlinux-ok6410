@@ -44,18 +44,20 @@ extern void board_nand_init(struct nand_chip *nand);
 static void nand_init_chip(struct mtd_info *mtd, struct nand_chip *nand,
 			   ulong base_addr)
 {
+	printf("================= entry %s ==============\n", __func__);
 	mtd->priv = nand;
 
 	nand->IO_ADDR_R = nand->IO_ADDR_W = (void  __iomem *)base_addr;
 	board_nand_init(nand);
 
-	//printf("nand_init_chip!\n");
+	printf("nand_init_chip done!\n");
 
 	if (nand_scan(mtd, 1) == 0) {
 		if (!mtd->name)
 			mtd->name = (char *)default_nand_name;
 	} else
 		mtd->name = NULL;
+	printf("================= exit %s ==============\n", __func__);
 
 }
 

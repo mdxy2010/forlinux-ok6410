@@ -2413,6 +2413,7 @@ static void nand_resume(struct mtd_info *mtd)
  */
 static void nand_set_defaults(struct nand_chip *chip, int busw)
 {
+	printf("======= entry %s ============\n", __func__);
     /* check for proper chip_delay setup, set 20us if not */
     if (!chip->chip_delay)
         chip->chip_delay = 20;
@@ -2450,6 +2451,7 @@ static void nand_set_defaults(struct nand_chip *chip, int busw)
         init_waitqueue_head(&chip->controller->wq);
     }
 #endif
+	printf("======= exit %s ============\n", __func__);
 
 }
 
@@ -2666,7 +2668,8 @@ static struct nand_flash_dev *nand_get_flash_type(struct mtd_info *mtd,
  */
 int nand_scan_ident(struct mtd_info *mtd, int maxchips)
 {
-    int i, busw, nand_maf_id;
+    printf("============ entry %s ============\n", __func__);
+	int i, busw, nand_maf_id;
     struct nand_chip *chip = mtd->priv;
     struct nand_flash_dev *type;
 
@@ -2701,6 +2704,7 @@ int nand_scan_ident(struct mtd_info *mtd, int maxchips)
     chip->numchips = i;
     mtd->size = i * chip->chipsize;
 
+    printf("============ exit %s ============\n", __func__);
     return 0;
 }
 
@@ -2934,19 +2938,16 @@ int nand_scan_tail(struct mtd_info *mtd)
  */
 int nand_scan(struct mtd_info *mtd, int maxchips)
 {
+	printf("================ entry %s ===============\n", __func__);
     int ret;
 
-#if 0
-    /* Many callers got this wrong, so check for it for a while... */
-    if (!mtd->owner && caller_is_module()) {
-        printk(KERN_CRIT "nand_scan() called with NULL mtd->owner!\n");
-        BUG();
-    }
-#endif
-
     ret = nand_scan_ident(mtd, maxchips);
-    if (!ret)
+    if (!ret) {
+		printf("============= start nand_scan_tail ================\n");
         ret = nand_scan_tail(mtd);
+		printf("============= end   nand_scan_tail ================\n");
+	}
+	printf("================ exit %s ===============\n", __func__);
     return ret;
 }
 

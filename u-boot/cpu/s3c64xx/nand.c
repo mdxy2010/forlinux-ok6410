@@ -1155,7 +1155,7 @@ void board_nand_init(struct nand_chip *nand)
 #endif
 
 #ifdef FORLINX_DEBUG
-			printf("Nandflash:ChipType= SLC  ChipName=MT29F16G08ABACAWP\n");
+			printf("Yuxing: Nandflash:ChipType= SLC  ChipName=MT29F16G08ABACAWP\n");
 #endif
 
 		}

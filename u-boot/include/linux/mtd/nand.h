@@ -373,7 +373,7 @@ struct nand_chip {
 	int		(*block_bad)(struct mtd_info *mtd, loff_t ofs, int getchip);
 	int		(*block_markbad)(struct mtd_info *mtd, loff_t ofs);
 	void		(*cmd_ctrl)(struct mtd_info *mtd, int dat,
-				    unsigned int ctrl);
+		unsigned int ctrl);
 	int		(*dev_ready)(struct mtd_info *mtd);
 	void		(*cmdfunc)(struct mtd_info *mtd, unsigned command, int column, int page_addr);
 	int		(*waitfunc)(struct mtd_info *mtd, struct nand_chip *this);
@@ -381,7 +381,7 @@ struct nand_chip {
 	int		(*scan_bbt)(struct mtd_info *mtd);
 	int		(*errstat)(struct mtd_info *mtd, struct nand_chip *this, int state, int status, int page);
 	int		(*write_page)(struct mtd_info *mtd, struct nand_chip *chip,
-				      const uint8_t *buf, int page, int cached, int raw);
+		const uint8_t *buf, int page, int cached, int raw);
 
 	int		chip_delay;
 	unsigned int	options;
@@ -408,7 +408,7 @@ struct nand_chip {
 
 	struct nand_ecc_ctrl ecc;
 	struct nand_buffers *buffers;
-/* XXX U-BOOT XXX */
+	/* XXX U-BOOT XXX */
 #if 0
 	struct nand_hw_control hwcontrol;
 #endif
@@ -419,7 +419,6 @@ struct nand_chip {
 	struct nand_bbt_descr	*bbt_md;
 
 	struct nand_bbt_descr	*badblock_pattern;
-
 	void		*priv;
 };
 
