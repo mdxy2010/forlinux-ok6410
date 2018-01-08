@@ -25,6 +25,7 @@
 #include <logbuff.h>
 #include <malloc.h>
 #include <mapmem.h>
+#include <asm/arch/s3c_serial.h>
 
 /* TODO: Can we move these into arch/ headers? */
 #ifdef CONFIG_8xx
@@ -979,6 +980,7 @@ void board_init_f(ulong boot_flags)
 
 	gd->flags = boot_flags;
 	gd->have_console = 0;
+	s3c_serial_puts("================= start board_init_f ===============\n");
 
 	if (initcall_run_list(init_sequence_f))
 		hang();

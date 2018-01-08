@@ -3,9 +3,11 @@ config CREATE_ARCH_SYMLINK
 
 config HAVE_GENERIC_BOARD
 	bool
+	default y
 
 config SYS_GENERIC_BOARD
 	bool
+	default y
 	depends on HAVE_GENERIC_BOARD
 
 choice

@@ -87,6 +87,10 @@ config TARGET_SMDK2410
 	bool "Support smdk2410"
 	select CPU_ARM920T
 
+config TARGET_SMDK6410
+	bool "Support smdk6410"
+	select CPU_ARM1176
+
 config TARGET_ASPENITE
 	bool "Support aspenite"
 	select CPU_ARM926EJS
@@ -769,6 +773,7 @@ source "board/phytec/pcm051/Kconfig"
 source "board/phytec/pcm052/Kconfig"
 source "board/ppcag/bg0900/Kconfig"
 source "board/samsung/smdk2410/Kconfig"
+source "board/samsung/smdk6410/Kconfig"
 source "board/sandisk/sansa_fuze_plus/Kconfig"
 source "board/schulercontrol/sc_sps_1/Kconfig"
 source "board/siemens/draco/Kconfig"

@@ -42,7 +42,7 @@ extern void nand_init(void);
 void board_nand_init(void);
 int nand_register(int devnum);
 #else
-extern int board_nand_init(struct nand_chip *nand);
+//int board_nand_init(struct nand_chip *nand);
 #endif
 
 typedef struct mtd_info nand_info_t;

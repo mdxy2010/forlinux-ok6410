@@ -115,6 +115,10 @@ struct nand_ecclayout {
 	__u32 eccpos[MTD_MAX_ECCPOS_ENTRIES_LARGE];
 	__u32 oobavail;
 	struct nand_oobfree oobfree[MTD_MAX_OOBFREE_ENTRIES_LARGE];
+	
+	/* XXX U-BOOT XXX */
+	uint32_t useecc;
+	uint32_t reserved;
 };
 
 struct module;	/* only needed for owner field in mtd_info */

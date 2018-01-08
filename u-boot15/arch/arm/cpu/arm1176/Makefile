@@ -11,4 +11,7 @@
 obj- += dummy.o
 extra-y	= start.o
 
-obj-y += ../arm11/
+#obj-y += ../arm11/
+obj-y += cpu.o
+
+obj-$(CONFIG_S3C6410) += s3c6410/
